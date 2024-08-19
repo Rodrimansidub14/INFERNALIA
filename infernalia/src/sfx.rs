@@ -8,6 +8,7 @@ pub struct SoundManager {
     stream_handle: Arc<rodio::OutputStreamHandle>,
     footstep_sink: Sink,
     ambient_sink: Sink, // Sink to handle the ambient sound
+    music_sink: Sink,   // Sink to handle the music
 }
 
 impl SoundManager {
@@ -15,12 +16,14 @@ impl SoundManager {
         let (_stream, stream_handle) = OutputStream::try_default().unwrap();
         let footstep_sink = Sink::try_new(&stream_handle).unwrap();
         let ambient_sink = Sink::try_new(&stream_handle).unwrap();
+        let music_sink = Sink::try_new(&stream_handle).unwrap(); // Initialize music sink
 
         SoundManager {
             _stream,
             stream_handle: Arc::new(stream_handle),
             footstep_sink,
             ambient_sink,
+            music_sink,
         }
     }
 
@@ -49,5 +52,13 @@ impl SoundManager {
 
     pub fn stop_ambient(&self) {
         self.ambient_sink.stop();
+    }
+
+    pub fn play_music(&self, file_path: &str) {
+        // Reproducir la música desde el inicio
+        let file = File::open(file_path).expect("Failed to open music file");
+        let source = Decoder::new(BufReader::new(file)).expect("Failed to decode music file");
+        self.music_sink.append(source); // No repeat, play once
+        self.music_sink.play();
     }
 }

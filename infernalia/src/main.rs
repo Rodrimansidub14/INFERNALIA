@@ -170,6 +170,13 @@ fn main() {
                     show_initial_text = false;
                 }
             } else if show_final_text {
+                // Detener todos los sonidos en curso
+                sound_manager.stop_footsteps();
+                sound_manager.stop_ambient();
+
+                // Reproducir la canción de Taylor Swift
+                sound_manager.play_music("assets/music/playlist/Lovestory.mp3"); // Asegúrate de que el archivo existe
+
                 // Dibujar el overlay semitransparente
                 draw_overlay(&mut framebuffer, 50);
 
