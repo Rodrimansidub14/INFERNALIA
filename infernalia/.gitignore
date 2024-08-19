@@ -1,0 +1,24 @@
+# Ignorar la carpeta target, que contiene los binarios compilados
+/target/
+
+# Ignorar archivos de lock que se generan automáticamente
+Cargo.lock
+
+# Ignorar carpetas de dependencias generadas por el IDE
+**/target/debug/
+**/target/release/
+
+# Ignorar archivos de build de Visual Studio Code
+.vscode/
+.idea/
+*.swp
+
+# Ignorar archivos temporales de compilación
+*.rs.bk
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar archivos y carpetas relacionados con sistemas de control de versiones de otros IDEs o herramientas
+**/.DS_Store
+**/.apple/
